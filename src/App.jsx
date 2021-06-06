@@ -14,7 +14,7 @@ class App extends Component {
       stats: {},
       countries: [],
       error: null,
-      selected: 0,
+      selected: "0",
     };
     this.fetchCovData = this.fetchCovData.bind(this);
     this.handleCountryChange = this.handleCountryChange.bind(this);
@@ -68,7 +68,7 @@ class App extends Component {
               onChange={this.handleCountryChange}
               className="form-select mt-10 block w-full border p-3 rounded"
             >
-              <option value="0">Select Country</option>
+              <option value={this.state.selected}>Select Country</option>
               {countries.map((country) => (
                 <option value={country.ID} key={country.ID}>
                   {country.Country}
