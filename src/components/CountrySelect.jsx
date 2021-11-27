@@ -5,15 +5,17 @@ export default class CountrySelect extends Component {
   };
 
   render() {
-    const { countries, changeCountry } = this.props;
+    const { countries, onCountryChange } = this.props;
     return (
       <select
-        onChange={() => changeCountry()}
+        onChange={onCountryChange}
         className="form-select mt-10 block w-full border p-3 rounded"
       >
-        <option value="0">Select Country</option>
+        <option value={this.state.selected}>Select Country</option>
         {countries.map((country) => (
-          <option key={country.ID}>{country.Country}</option>
+          <option value={country.ID} key={country.ID}>
+            {country.Country}
+          </option>
         ))}
       </select>
     );

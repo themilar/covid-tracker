@@ -1,9 +1,10 @@
 import "./App.css";
 import React, { Component } from "react";
-import { Header, DataTitle, DataBoxes, CountrySelect } from "./components";
 import moment from "moment";
-import hourglass from "./assets/hourglass.gif";
 
+import { Header, DataTitle, CountrySelect } from "./components";
+import hourglass from "./assets/hourglass.gif";
+import StyledDataBox from "./components/DataBox";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +15,6 @@ class App extends Component {
       stats: {},
       countries: [],
       error: null,
-      selected: "0",
     };
     this.fetchCovData = this.fetchCovData.bind(this);
     this.handleCountryChange = this.handleCountryChange.bind(this);
@@ -36,14 +36,15 @@ class App extends Component {
   }
   handleCountryChange(e) {
     let selected = e.target.value;
+    // this.setState({ selected: e.target.value });
     const country = this.state.countries.find((item) => item.ID === selected);
-    if (country) {
-      this.setState({
-        title: country.Country,
-        stats: country,
-        selected: selected,
-      });
-    }
+    // if (country) {
+    this.setState({
+      title: country.Country,
+      stats: country,
+      selected: selected,
+    });
+    // }
   }
   handleClick(e) {
     this.setState({ loading: true });
@@ -63,18 +64,15 @@ class App extends Component {
         {!this.state.loading ? (
           <main>
             <DataTitle text={title} dataDate={timestamp(dataDate)} />
-            <DataBoxes stats={stats} />
-            <select
-              onChange={this.handleCountryChange}
-              className="form-select mt-10 block w-full border p-3 rounded"
-            >
-              <option value={this.state.selected}>Select Country</option>
-              {countries.map((country) => (
-                <option value={country.ID} key={country.ID}>
-                  {country.Country}
-                </option>
-              ))}
-            </select>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <StyledDataBox stat={stats} cases />
+              <StyledDataBox stat={stats} />
+            </div>
+            <CountrySelect
+              countries={countries}
+              onCountryChange={this.handleCountryChange}
+            />
             {stats.Country && (
               <button
                 onClick={this.handleClick}
