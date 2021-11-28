@@ -1,6 +1,10 @@
 # covid-tracker
 Based on the example by traversy media [Traversy Media](https://www.youtube.com/watch?v=m-MAIpnH9ag)
 
+### Setup
+``
+yarn install
+``
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
